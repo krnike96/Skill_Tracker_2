@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags static %}
+
+{% block title %}Login with Google{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="card-title text-center mb-4">Sign In with Google</h2>
+                    <div class="text-center mb-4">
+                        <img src="{% static 'images/google-logo.png' %}" width="100" alt="Google Logo">
+                    </div>
+                    
+                    <p class="text-center mb-4">You are about to sign in using your Google account.</p>
+                    
+                    <form method="post" class="text-center">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-lg">
+                            <i class="fa fa-google me-2"></i> Continue with Google
+                        </button>
+                    </form>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="text-center">
+                        <p class="mb-2">Or sign in with:</p>
+                        <a href="{% url 'account_login' %}" class="btn btn-primary">
+                            <i class="fa fa-user me-2"></i> Local Account
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border-radius: 10px;
+    }
+    .btn-google {
+        background-color: #DB4437;
+        color: white;
+    }
+    .btn-google:hover {
+        background-color: #C1351B;
+        color: white;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Welcome to Skill Tracker</h1>
+                <p class="card-text">Track and manage your skills in one place.</p>
+                
+                {% if not user.is_authenticated %}
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                    <a href="{% url 'account_login' %}" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
+                    <a href="{% url 'account_signup' %}" class="btn btn-outline-secondary btn-lg px-4">Sign Up</a>
+                </div>
+                {% else %}
+                <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg px-4">Go to Dashboard</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

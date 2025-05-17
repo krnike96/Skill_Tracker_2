@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load static custom_filters %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <img src="{% static 'images/default-avatar.png' %}" class="rounded-circle" width="100" alt="Avatar">
+                </div>
+                <h4>{{ user.username }}</h4>
+                <p class="text-muted">{{ user.email }}</p>
+                <hr>
+                <div class="d-flex justify-content-between mb-2">
+                    <span>Total Skills:</span>
+                    <span class="fw-bold">{{ total_skills|default:"0" }}</span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span>Avg Proficiency:</span>
+                    <span class="fw-bold">{{ avg_proficiency|default:"0" }}/10</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Export Profile</h5>
+                <div class="d-grid gap-2">
+                    <a href="{% url 'export_profile' 'pdf' %}" class="btn btn-outline-danger">
+                        <i class="material-icons">picture_as_pdf</i> PDF
+                    </a>
+                    <a href="{% url 'export_profile' 'csv' %}" class="btn btn-outline-primary">
+                        <i class="material-icons">grid_on</i> CSV
+                    </a>
+                    <a href="{% url 'export_profile' 'json' %}" class="btn btn-outline-dark">
+                        <i class="material-icons">code</i> JSON
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Skills Summary</h5>
+                {% if skills %}
+                <div class="row">
+                    {% for skill in skills %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6>{{ skill.name }}</h6>
+                                <small class="text-muted">{{ skill.get_category_display }}</small>
+                                <div class="progress skill-progress mt-2">
+                                    <div class="progress-bar" role="progressbar" 
+                                         style="width: {{ skill.proficiency|multiply:10 }}%" 
+                                         aria-valuenow="{{ skill.proficiency }}" 
+                                         aria-valuemin="1" 
+                                         aria-valuemax="10">
+                                        {{ skill.proficiency }}/10
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="text-muted">No skills added yet. <a href="{% url 'add_skill' %}">Add your first skill</a>.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
