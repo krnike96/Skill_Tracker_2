@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
-{% block title %}Login{% endblock %}
+{% block title %}Sign Up{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
@@ -9,19 +9,16 @@
         <div class="col-md-6 col-lg-4">
             <div class="card shadow-lg">
                 <div class="card-body p-4">
-                    <h2 class="card-title text-center mb-4">Sign In</h2>
-                    <form class="login" method="POST" action="{% url 'account_login' %}">
+                    <h2 class="card-title text-center mb-4">Create Account</h2>
+                    <form class="signup" method="POST" action="{% url 'account_signup' %}">
                         {% csrf_token %}
                         {{ form|crispy }}
                         {% if redirect_field_value %}
                         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                         {% endif %}
                         <div class="d-grid gap-2 mt-4">
-                            <button class="btn btn-primary btn-lg" type="submit">Sign In</button>
-                            <a class="btn btn-outline-secondary" href="{% url 'account_signup' %}">Create Account</a>
-                        </div>
-                        <div class="text-center mt-3">
-                            <a href="{% url 'account_reset_password' %}" class="text-muted">Forgot Password?</a>
+                            <button class="btn btn-primary btn-lg" type="submit">Sign Up</button>
+                            <a class="btn btn-outline-secondary" href="{% url 'account_login' %}">Already have an account? Sign In</a>
                         </div>
                     </form>
                 </div>
